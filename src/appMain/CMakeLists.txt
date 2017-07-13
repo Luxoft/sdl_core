@@ -188,10 +188,7 @@ if (${QT_HMI})
     set(start_command "./start-qml.sh")
     set(command_arguments "${main_qml} ${plugins_dir}")
   else ()
-    execute_process(
-      COMMAND ${CMAKE_SOURCE_DIR}/FindQt.sh -v ${qt_version} -b qmlscene
-      OUTPUT_VARIABLE start_command
-    )
+    set(start_command "${qt_bin_dir}/qmlscene")
     set(command_arguments "${main_qml} -I ${plugins_dir}")
   endif ()
 

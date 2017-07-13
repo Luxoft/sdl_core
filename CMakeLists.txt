@@ -261,26 +261,19 @@ if (HMI STREQUAL "qt")
     cmake_minimum_required(VERSION 2.8.11)
     if (CMAKE_SYSTEM_NAME STREQUAL "QNX")
         set(qt_version "4.8.5")
-    else ()
-        set(qt_version "5.5.1")
-    endif ()
-
-    execute_process(
-        COMMAND ${CMAKE_SOURCE_DIR}/FindQt.sh -v ${qt_version}
-            OUTPUT_VARIABLE qt_bin_dir
-    )
-    message(STATUS "Binary directory Qt ${qt_version} is ${qt_bin_dir}")
-    set(ENV{PATH} ${qt_bin_dir}:$ENV{PATH})
-
-    if (CMAKE_SYSTEM_NAME STREQUAL "QNX")
+        set(qt_major_version "4")
         find_package(Qt4 ${qt_version} REQUIRED QtCore QtGui QtDBus QtDeclarative)
     else ()
-        find_package(Qt5Core REQUIRED)
-        find_package(Qt5DBus REQUIRED)
-        find_package(Qt5Qml REQUIRED)
-        find_package(Qt5Quick REQUIRED)
+        find_package(Qt5 REQUIRED COMPONENTS Core DBus Qml Quick)
+        set(qt_bin_dir "${_qt5Core_install_prefix}/bin/")
+        message("QT5: ${Qt5_DIR} - ${_qt5Core_install_prefix} - ${Qt5_VERSION}")
+        set(qt_version "${Qt5_VERSION}")
+        set(qt_major_version "${Qt5_VERSION_MAJOR}")
         set(qmlplugindump_binary ${qt_bin_dir}/qmlplugindump)
     endif ()
+
+    message(STATUS "Binary directory Qt ${qt_version} is ${qt_bin_dir}")
+    set(ENV{PATH} ${qt_bin_dir}:$ENV{PATH})
 endif()
 
 set(INTEFRACE_GENERATOR "${PROJECT_SOURCE_DIR}/tools/InterfaceGenerator/Generator.py")
