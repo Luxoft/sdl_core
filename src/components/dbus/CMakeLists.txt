@@ -49,7 +49,11 @@ set (SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/schema.cc
 )
 
-set (LIBRARIES dbus-1 -L${DBUS_LIBS_DIRECTORY})
+if("${DBUS_LIBS_DIRECTORY}" STREQUAL "")
+    set (LIBRARIES dbus-1)
+else()
+    set (LIBRARIES dbus-1 -L${DBUS_LIBS_DIRECTORY})
+endif()
 
 
 add_custom_command(

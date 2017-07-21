@@ -171,7 +171,16 @@ int32_t main(int32_t argc, char** argv) {
       LOG4CXX_INFO(logger_, "Start HMI on localhost");
 
 #ifndef NO_HMI
+#ifdef WEB_HMI
       if (!InitHmi(profile_instance.link_to_web_hmi())) {
+#else 
+#ifdef QT_HMI
+      if (!InitHmi(/*profile_instance.link_to_web_hmi()*/)) {//FIXME for QT HMI - InitHmi does not take arguments
+#else
+#error HMI UNDEFINED
+#endif //QT_HMI
+#endif //WEB_HMI
+
         LOG4CXX_INFO(logger_, "InitHmi successful");
       } else {
         LOG4CXX_WARN(logger_, "Failed to init HMI");

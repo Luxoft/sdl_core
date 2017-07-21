@@ -43,11 +43,11 @@ set(SOURCES log4cxx_plugin.cc)
 
 add_library(${target} SHARED ${SOURCES})
 
-if (${qt_version} MATCHES "4.8.5")
+if (${qt_major_version} MATCHES "4")
   qt4_use_modules(${target} Core Declarative)
   set(model_dir ${CMAKE_CURRENT_BINARY_DIR}/../../qml_model_qt4/)
   set(copy_destination ${CMAKE_CURRENT_BINARY_DIR}/../../qml_model_qt4/${destination})
-elseif (${qt_version} MATCHES "5.1.0")
+elseif (${qt_major_version} MATCHES "5")
   qt5_use_modules(${target} Core Qml)
   set(model_dir ${CMAKE_CURRENT_BINARY_DIR}/../../qml_model_qt5/)
   set(copy_destination ${CMAKE_CURRENT_BINARY_DIR}/../../qml_model_qt5/${destination})

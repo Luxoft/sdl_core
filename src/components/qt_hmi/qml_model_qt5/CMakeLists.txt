@@ -42,7 +42,7 @@ set(qml_dirs hmi_api controls models popups views)
 set(qml_files MainWindow.qml)
 
 add_custom_target(qml_auto ALL
-  COMMAND python ${codegen} --infile ${api_xml} --version ${qt_version} --outdir ${proxy_dir}
+  COMMAND python ${codegen} --infile ${api_xml} --version ${qt_major_version} --outdir ${proxy_dir}
   DEPENDS ${api_xml} ${codegen} ${parser}
   COMMENT "Generating files:
     ${proxy_dir}/BasicCommunicationProxy.qml
